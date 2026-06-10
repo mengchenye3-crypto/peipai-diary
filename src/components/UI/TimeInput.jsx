@@ -12,9 +12,12 @@ export default function TimeInput({ value, onChange, error, id }) {
   const [h, setH] = useState('');
   const [m, setM] = useState('');
   const minRef = useRef(null);
+  /* 记录上一次自己发出的值，防止 useEffect 把自己的回显当外部重置 */
+  const lastEmitted = useRef('');
 
-  /* 外部 value 同步到内部 */
+  /* 外部 value 同步到内部（跳过自己发出去又回来的回显） */
   useEffect(() => {
+    if (value === lastEmitted.current) return;
     if (value && /^\d{2}:\d{2}$/.test(value)) {
       setH(value.slice(0, 2));
       setM(value.slice(3, 5));
@@ -27,11 +30,11 @@ export default function TimeInput({ value, onChange, error, id }) {
   const emit = (hVal, mVal) => {
     const hOk = hVal !== '' && !isNaN(parseInt(hVal));
     const mOk = mVal !== '' && !isNaN(parseInt(mVal));
-    if (hOk && mOk) {
-      onChange(`${String(parseInt(hVal)).padStart(2,'0')}:${String(parseInt(mVal)).padStart(2,'0')}`);
-    } else {
-      onChange('');
-    }
+    const next = (hOk && mOk)
+      ? `${String(parseInt(hVal)).padStart(2,'0')}:${String(parseInt(mVal)).padStart(2,'0')}`
+      : '';
+    lastEmitted.current = next;
+    onChange(next);
   };
 
   /* 小时输入 */
