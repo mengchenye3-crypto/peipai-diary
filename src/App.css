@@ -259,9 +259,7 @@ body {
   min-width: 0;
 }
 
-.bottom-tab:nth-child(1) { order: 1; }
-.bottom-tab:nth-child(2) { order: 2; }
-.bottom-tab:nth-child(3) { order: 4; }
+/* 4个等宽 Tab，无需 order 调整 */
 
 .bottom-tab--active { color: var(--color-primary-dark); }
 
@@ -280,31 +278,9 @@ body {
   font-weight: var(--font-medium);
 }
 
-/* 中央 FAB */
-.fab {
-  order: 3;
-  width: 54px;
-  height: 54px;
-  border-radius: var(--radius-full);
-  border: none;
-  background: linear-gradient(135deg, #6DCFB0 0%, #A8E6D4 50%, #FFB5C8 100%);
-  color: #fff;
-  font-size: 28px;
-  font-weight: 300;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(109,207,176,0.40), 0 2px 8px rgba(255,181,200,0.20);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform 150ms, box-shadow 150ms;
-  margin-bottom: 8px;
-  line-height: 1;
-}
-
-.fab:hover, .fab:active {
-  transform: scale(1.10) rotate(6deg);
-  box-shadow: 0 6px 28px rgba(109,207,176,0.50), 0 3px 12px rgba(255,181,200,0.30);
+/* 收支 Tab 特殊高亮 */
+.bottom-tab--active[data-key="finance"] {
+  color: var(--color-primary-dark);
 }
 
 /* ══════════════════════════════════
@@ -329,5 +305,5 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fab, .nav-arrow, .bottom-tab-icon { transition: none; }
+  .nav-arrow, .bottom-tab-icon { transition: none; }
 }

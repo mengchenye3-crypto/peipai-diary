@@ -8,6 +8,7 @@ import Sidebar  from './components/UI/Sidebar';
 import StatsBar    from './components/UI/StatsBar';
 import ExportModal    from './components/UI/ExportModal';
 import SettingsModal  from './components/UI/SettingsModal';
+import FinanceModal   from './components/UI/FinanceModal';
 import OrderForm    from './components/Order/OrderForm';
 import OrderDetail  from './components/Order/OrderDetail';
 import { useOrders }   from './hooks/useOrders';
@@ -18,9 +19,10 @@ import './App.css';
 const MONTH_NAMES = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
 
 const VIEW_TABS = [
-  { key: 'month', label: '月', icon: '▦' },
-  { key: 'week',  label: '周', icon: '▤' },
-  { key: 'day',   label: '日', icon: '▣' },
+  { key: 'month',   label: '月',   icon: '▦' },
+  { key: 'week',    label: '周',   icon: '▤' },
+  { key: 'day',     label: '日',   icon: '▣' },
+  { key: 'finance', label: '收支', icon: '💴' },
 ];
 
 export default function App() {
@@ -58,6 +60,9 @@ export default function App() {
 
   /* ── 设置弹窗 ── */
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  /* ── 收支弹窗 ── */
+  const [financeOpen, setFinanceOpen] = useState(false);
 
   /* ── 周视图：本周7天 ── */
   const weekDates = useMemo(() => getWeekDays(weekBase), [weekBase]);
@@ -232,13 +237,12 @@ export default function App() {
           <button
             key={tab.key}
             className={`bottom-tab ${view === tab.key ? 'bottom-tab--active' : ''}`}
-            onClick={() => switchView(tab.key)}
+            onClick={() => tab.key === 'finance' ? setFinanceOpen(true) : switchView(tab.key)}
           >
             <span className="bottom-tab-icon">{tab.icon}</span>
             <span className="bottom-tab-label">{tab.label}</span>
           </button>
         ))}
-        <button className="fab" onClick={openNewOrder} aria-label="新建订单">＋</button>
       </nav>
 
       {/* ── 新建/编辑订单模态框 ── */}
@@ -260,6 +264,15 @@ export default function App() {
       <ExportModal
         open={exportOpen}
         onClose={() => setExportOpen(false)}
+        orders={orders}
+        year={year}
+        month={month}
+      />
+
+      {/* ── 收支弹窗 ── */}
+      <FinanceModal
+        open={financeOpen}
+        onClose={() => setFinanceOpen(false)}
         orders={orders}
         year={year}
         month={month}

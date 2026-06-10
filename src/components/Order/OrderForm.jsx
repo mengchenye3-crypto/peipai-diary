@@ -13,6 +13,8 @@ const EMPTY_FORM = {
   commuteBefore: 60,
   commuteAfter: 60,
   price: '',
+  carFee: '',
+  depositAmount: '',
   preference: '',
   location: '',
   status: 'pending',
@@ -85,7 +87,9 @@ export default function OrderForm({ initialDate, initialStartTime, order, onSave
     if (Object.keys(errs).length) { setErrors(errs); return; }
     onSave({
       ...form,
-      price: Number(form.price),
+      price:         Number(form.price)         || 0,
+      carFee:        Number(form.carFee)         || 0,
+      depositAmount: Number(form.depositAmount)  || 0,
       commuteBefore: Number(form.commuteBefore),
       commuteAfter:  Number(form.commuteAfter),
     });
@@ -200,6 +204,34 @@ export default function OrderForm({ initialDate, initialStartTime, order, onSave
             );
           }
         })()}
+      </div>
+
+      {/* 车费 + 定金金额（同行） */}
+      <div className="form-row">
+        <div className="form-field">
+          <label className="form-label">🚕 车费（元）</label>
+          <div className="price-wrap">
+            <span className="price-symbol">¥</span>
+            <input
+              className="form-input form-input--price"
+              type="number" min="0" placeholder="0"
+              value={form.carFee}
+              onChange={e => set('carFee', e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="form-field">
+          <label className="form-label">💌 定金金额（元）</label>
+          <div className="price-wrap">
+            <span className="price-symbol">¥</span>
+            <input
+              className="form-input form-input--price"
+              type="number" min="0" placeholder="0"
+              value={form.depositAmount}
+              onChange={e => set('depositAmount', e.target.value)}
+            />
+          </div>
+        </div>
       </div>
 
       {/* 拍摄地点 */}
