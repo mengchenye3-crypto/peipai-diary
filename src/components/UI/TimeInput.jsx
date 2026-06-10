@@ -37,25 +37,45 @@ export default function TimeInput({ value, onChange, error, id }) {
     onChange(next);
   };
 
-  /* 小时输入 */
+  /* 从 nativeEvent.data 提取单个数字字符（移动端安全） */
+  const getChar = (e) => (e.nativeEvent?.data ?? '').replace(/\D/g, '');
+
+  /* 小时输入：用追加方式，避免光标位置影响 */
   const handleH = (e) => {
-    let v = e.target.value.replace(/\D/g, '').slice(0, 2);
-    const n = parseInt(v);
-    if (v === '' || (!isNaN(n) && n >= 0 && n <= 23)) {
-      setH(v);
-      emit(v, m);
-      /* 输入两位后自动跳分钟 */
-      if (v.length === 2) minRef.current?.focus();
+    const char = getChar(e);
+    if (!char) {
+      /* 删除/清空：直接读 target.value */
+      const v = e.target.value.replace(/\D/g, '').slice(0, 2);
+      setH(v); emit(v, m);
+      return;
+    }
+    /* 把新字符追加到当前小时值，忽略光标位置 */
+    const next = (h + char).slice(0, 2);
+    const n = parseInt(next);
+    if (!isNaN(n) && n >= 0 && n <= 23) {
+      setH(next); emit(next, m);
+      if (next.length === 2) minRef.current?.focus();
+    }
+    /* 超出范围（如 31）：只保留新字符作为新的个位数起点 */
+    else if (next.length === 2) {
+      setH(char); emit(char, m);
     }
   };
 
-  /* 分钟输入 */
+  /* 分钟输入：同上 */
   const handleM = (e) => {
-    let v = e.target.value.replace(/\D/g, '').slice(0, 2);
-    const n = parseInt(v);
-    if (v === '' || (!isNaN(n) && n >= 0 && n <= 59)) {
-      setM(v);
-      emit(h, v);
+    const char = getChar(e);
+    if (!char) {
+      const v = e.target.value.replace(/\D/g, '').slice(0, 2);
+      setM(v); emit(h, v);
+      return;
+    }
+    const next = (m + char).slice(0, 2);
+    const n = parseInt(next);
+    if (!isNaN(n) && n >= 0 && n <= 59) {
+      setM(next); emit(h, next);
+    } else if (next.length === 2) {
+      setM(char); emit(h, char);
     }
   };
 
