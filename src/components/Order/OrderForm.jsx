@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import TimeInput from '../UI/TimeInput';
 import { timeToMinutes, minutesToTime } from '../../utils/timeUtils';
+import { loadSettings } from '../../utils/settingsStorage';
 import './OrderForm.css';
 
 const EMPTY_FORM = {
@@ -25,13 +26,30 @@ export default function OrderForm({ initialDate, initialStartTime, order, onSave
       : { ...EMPTY_FORM, date: initialDate || '', startTime: initialStartTime || '' }
   );
   const [errors, setErrors] = useState({});
+  const [priceAutoCalc, setPriceAutoCalc] = useState(false); // 标记价格是否由时薪算出
 
   useEffect(() => {
     if (order) setForm({ ...EMPTY_FORM, ...order });
   }, [order]);
 
   const set = (field, value) => {
-    setForm(prev => ({ ...prev, [field]: value }));
+    setForm(prev => {
+      const next = { ...prev, [field]: value };
+      /* 时间变化时，若有时薪设置则自动计算价格 */
+      if (field === 'startTime' || field === 'endTime') {
+        const s = field === 'startTime' ? value : prev.startTime;
+        const e = field === 'endTime'   ? value : prev.endTime;
+        const { hourlyRate } = loadSettings();
+        if (hourlyRate > 0 && s && e && s < e) {
+          const hours = (timeToMinutes(e) - timeToMinutes(s)) / 60;
+          next.price = Math.round(hours * hourlyRate);
+          setPriceAutoCalc(true);
+        }
+      }
+      /* 用户手动改价格，取消自动计算标记 */
+      if (field === 'price') setPriceAutoCalc(false);
+      return next;
+    });
     if (errors[field]) setErrors(prev => ({ ...prev, [field]: '' }));
   };
 
@@ -169,6 +187,19 @@ export default function OrderForm({ initialDate, initialStartTime, order, onSave
           />
         </div>
         {errors.price && <p className="form-error">✦ {errors.price}</p>}
+        {/* 时薪自动计算提示 */}
+        {priceAutoCalc && form.startTime && form.endTime && (() => {
+          const mins = timeToMinutes(form.endTime) - timeToMinutes(form.startTime);
+          const { hourlyRate } = loadSettings();
+          if (mins > 0 && hourlyRate > 0) {
+            const h = mins / 60;
+            return (
+              <p className="price-auto-hint">
+                = {h % 1 === 0 ? h : h.toFixed(1)} 小时 × ¥{hourlyRate}/h
+              </p>
+            );
+          }
+        })()}
       </div>
 
       {/* 拍摄地点 */}

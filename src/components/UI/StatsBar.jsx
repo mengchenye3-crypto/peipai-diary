@@ -1,4 +1,5 @@
 /* 顶部统计数据条 — 显示本月收入与订单状态分布 */
+import { loadSettings } from '../../utils/settingsStorage';
 import './StatsBar.css';
 
 /**
@@ -7,8 +8,10 @@ import './StatsBar.css';
  * @param {number}   props.year        - 当前月视图年份
  * @param {number}   props.month       - 当前月视图月份（0-indexed）
  * @param {Function} props.onExport    - 点击导出按钮回调
+ * @param {Function} props.onSettings  - 点击设置按钮回调
  */
-export default function StatsBar({ orders, year, month, onExport }) {
+export default function StatsBar({ orders, year, month, onExport, onSettings }) {
+  const { hourlyRate } = loadSettings();
   /* 只统计当月订单 */
   const monthStr = `${year}-${String(month + 1).padStart(2, '0')}`;
   const monthOrders = orders.filter(o => o.date && o.date.startsWith(monthStr));
@@ -27,6 +30,14 @@ export default function StatsBar({ orders, year, month, onExport }) {
 
   return (
     <div className="stats-bar">
+      {/* 设置按钮（⚙ 时薪） */}
+      <button className="stats-settings-btn" onClick={onSettings} aria-label="设置时薪">
+        {hourlyRate > 0
+          ? <span className="stats-rate-chip">¥{hourlyRate}/h</span>
+          : <span className="stats-rate-chip stats-rate-chip--unset">⚙ 时薪</span>
+        }
+      </button>
+
       {/* 移动端导出小按钮（桌面端通过 header 按钮操作） */}
       {onExport && (
         <button className="stats-export-btn" onClick={onExport} aria-label="导出订单">

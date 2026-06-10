@@ -6,7 +6,8 @@ import DayView   from './components/Calendar/DayView';
 import Modal    from './components/UI/Modal';
 import Sidebar  from './components/UI/Sidebar';
 import StatsBar    from './components/UI/StatsBar';
-import ExportModal from './components/UI/ExportModal';
+import ExportModal    from './components/UI/ExportModal';
+import SettingsModal  from './components/UI/SettingsModal';
 import OrderForm    from './components/Order/OrderForm';
 import OrderDetail  from './components/Order/OrderDetail';
 import { useOrders }   from './hooks/useOrders';
@@ -54,6 +55,9 @@ export default function App() {
 
   /* ── 导出弹窗 ── */
   const [exportOpen, setExportOpen] = useState(false);
+
+  /* ── 设置弹窗 ── */
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   /* ── 周视图：本周7天 ── */
   const weekDates = useMemo(() => getWeekDays(weekBase), [weekBase]);
@@ -185,12 +189,13 @@ export default function App() {
 
         <div className="header-actions">
           <button className="header-export-btn" onClick={() => setExportOpen(true)}>导出</button>
+          <button className="header-settings-btn" onClick={() => setSettingsOpen(true)} aria-label="设置">⚙</button>
           <button className="header-new-btn" onClick={openNewOrder}>＋ 新建</button>
         </div>
       </header>
 
       {/* ── 本月数据统计条 ── */}
-      <StatsBar orders={orders} year={year} month={month} onExport={() => setExportOpen(true)} />
+      <StatsBar orders={orders} year={year} month={month} onExport={() => setExportOpen(true)} onSettings={() => setSettingsOpen(true)} />
 
       {/* ── 主内容 ── */}
       <main className="app-main">
@@ -258,6 +263,13 @@ export default function App() {
         orders={orders}
         year={year}
         month={month}
+      />
+
+      {/* ── 设置弹窗 ── */}
+      <SettingsModal
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        onSave={() => {}}
       />
 
       {/* ── 侧边栏：订单详情 ── */}

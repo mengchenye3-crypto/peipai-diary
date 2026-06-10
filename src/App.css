@@ -155,6 +155,30 @@ body {
   transform: translateY(-1px);
 }
 
+/* 设置按钮（与导出按钮同样的圆形小按钮样式） */
+.header-settings-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid rgba(201,184,255,0.60);
+  background: rgba(201,184,255,0.18);
+  color: var(--color-text-sub);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms;
+  flex-shrink: 0;
+}
+
+.header-settings-btn:hover { background: rgba(201,184,255,0.32); }
+
+/* 移动端隐藏 header 设置按钮（StatsBar 上有 ⚙时薪 芯片） */
+@media (max-width: 639px) {
+  .header-settings-btn { display: none; }
+}
+
 /* 桌面端新建按钮（隐藏于移动端） */
 .header-new-btn {
   display: none;

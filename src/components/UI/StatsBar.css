@@ -81,6 +81,39 @@
   font-size: var(--text-md);
 }
 
+/* 设置/时薪按钮 */
+.stats-settings-btn {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.stats-rate-chip {
+  font-size: 11px;
+  font-weight: var(--font-bold);
+  font-family: var(--font-family-num);
+  color: var(--color-primary-dark);
+  background: var(--color-primary-mist);
+  border: 1px solid var(--color-border-mint);
+  border-radius: var(--radius-full);
+  padding: 3px 8px;
+  white-space: nowrap;
+  transition: background 120ms;
+}
+
+.stats-rate-chip--unset {
+  color: var(--color-text-sub);
+  background: var(--color-bg);
+  border-color: var(--color-border);
+}
+
+.stats-settings-btn:hover .stats-rate-chip { background: var(--color-primary-light); }
+.stats-settings-btn:hover .stats-rate-chip--unset { background: var(--color-border); }
+
 /* 移动端导出小按钮 */
 .stats-export-btn {
   flex-shrink: 0;
