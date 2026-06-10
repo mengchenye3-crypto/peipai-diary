@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip = [System.IO.Compression.ZipFile]::OpenRead\\(\"C:\\\\Users\\\\Administrator\\\\Desktop\\\\陈喆.docx\"\\); $entry = $zip.GetEntry\\(\"word/document.xml\"\\); $stream = $entry.Open\\(\\); $reader = New-Object System.IO.StreamReader\\($stream\\); $content = $reader.ReadToEnd\\(\\); $reader.Close\\(\\); $zip.Dispose\\(\\); $content -replace '<[^>]+>','' -replace '\\\\s+',' ' | Select-String -Pattern '\\\\S' | Select-Object -First 50)",
+      "PowerShell(Get-ChildItem \"C:\\\\Temp\\\\vite-init\\\\peipai\" | ForEach-Object { Copy-Item $_.FullName \"D:\\\\claude\\\\陪拍日记\\\\\" -Recurse -Force }; Write-Host \"复制完成\")",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "PowerShell(Start-Process \"chrome.exe\" \"http://localhost:5173\")",
+      "Bash(node -e ' *)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(node -e \"require\\('playwright'\\)\")",
+      "Bash(npx playwright *)",
+      "Bash(node -e \"const { chromium } = require\\('playwright'\\); console.log\\('ok'\\)\")",
+      "PowerShell($path = npm root -g; Write-Output $path; ls \"$path\\\\playwright\" -ErrorAction SilentlyContinue | Select-Object Name)",
+      "Bash(node verify-mobile.mjs)",
+      "Bash(npm install *)",
+      "Bash(rm -rf verify-screenshots verify-mobile.mjs)",
+      "Bash(npm uninstall *)",
+      "Bash(gh auth *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

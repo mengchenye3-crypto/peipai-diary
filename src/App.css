@@ -1,0 +1,309 @@
+/* App 全局布局 — 少女可爱风 · 移动端优先 */
+@import './styles/variables.css';
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+body {
+  font-family: var(--font-family-main);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  /* 可爱点点背景纹理 */
+  background-image:
+    radial-gradient(circle, rgba(255,181,200,0.08) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(109,207,176,0.06) 1px,   transparent 1px);
+  background-size: 28px 28px, 14px 14px;
+  background-position: 0 0, 7px 7px;
+  background-attachment: fixed;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+}
+
+#root {
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════
+   顶部 Header — 渐变可爱风
+══════════════════════════════════ */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+  height: 58px;
+  background: var(--grad-header);
+  border-bottom: 1.5px solid var(--color-border);
+  box-shadow: 0 2px 12px rgba(255,181,200,0.15);
+  flex-shrink: 0;
+  gap: var(--space-sm);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.logo {
+  font-size: 15px;
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+
+/* 月份导航 */
+.month-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-arrow {
+  width: 36px;
+  height: 36px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: rgba(255,255,255,0.65);
+  color: var(--color-text-sub);
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms, transform 100ms;
+  flex-shrink: 0;
+  backdrop-filter: blur(4px);
+}
+
+.nav-arrow:hover, .nav-arrow:active {
+  background: rgba(255,255,255,0.9);
+  transform: scale(1.08);
+}
+
+.month-label {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  font-family: var(--font-family-num);
+  border: none;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255,255,255,0.8);
+  transition: background 150ms;
+  white-space: nowrap;
+  min-width: 110px;
+  text-align: center;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-label:hover, .month-label:active {
+  background: rgba(255,255,255,0.85);
+}
+
+.month-label--today { color: var(--color-primary-dark); }
+
+/* header 右侧按钮组 */
+.header-actions {
+  display: none;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+/* 导出按钮（桌面端同步显示） */
+.header-export-btn {
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid rgba(201,184,255,0.60);
+  background: rgba(201,184,255,0.18);
+  color: var(--color-text-sub);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: background 150ms, transform 100ms;
+  white-space: nowrap;
+}
+
+.header-export-btn:hover {
+  background: rgba(201,184,255,0.32);
+  transform: translateY(-1px);
+}
+
+/* 桌面端新建按钮（隐藏于移动端） */
+.header-new-btn {
+  display: none;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #88D8BE 100%);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: opacity 150ms, transform 100ms;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(109,207,176,0.30);
+}
+
+.header-new-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════
+   主内容
+══════════════════════════════════ */
+.app-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.coming-soon {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+}
+
+.coming-soon-icon { font-size: 44px; opacity: 0.5; }
+
+/* ══════════════════════════════════
+   底部 Tab 导航 — 糖果风
+══════════════════════════════════ */
+.bottom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 66px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -4px 20px rgba(255,181,200,0.12);
+  flex-shrink: 0;
+  position: relative;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.bottom-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px 0;
+  color: var(--color-text-muted);
+  transition: color 150ms;
+  min-width: 0;
+}
+
+.bottom-tab:nth-child(1) { order: 1; }
+.bottom-tab:nth-child(2) { order: 2; }
+.bottom-tab:nth-child(3) { order: 4; }
+
+.bottom-tab--active { color: var(--color-primary-dark); }
+
+.bottom-tab-icon {
+  font-size: 19px;
+  line-height: 1;
+  transition: transform 150ms;
+}
+
+.bottom-tab--active .bottom-tab-icon {
+  transform: scale(1.15);
+}
+
+.bottom-tab-label {
+  font-size: 10px;
+  font-weight: var(--font-medium);
+}
+
+/* 中央 FAB */
+.fab {
+  order: 3;
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: linear-gradient(135deg, #6DCFB0 0%, #A8E6D4 50%, #FFB5C8 100%);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 300;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(109,207,176,0.40), 0 2px 8px rgba(255,181,200,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 150ms, box-shadow 150ms;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.fab:hover, .fab:active {
+  transform: scale(1.10) rotate(6deg);
+  box-shadow: 0 6px 28px rgba(109,207,176,0.50), 0 3px 12px rgba(255,181,200,0.30);
+}
+
+/* ══════════════════════════════════
+   桌面适配 ≥ 640px
+══════════════════════════════════ */
+@media (min-width: 640px) {
+  .app-header {
+    padding: 0 var(--space-xl);
+    height: 64px;
+  }
+
+  .logo { font-size: var(--text-lg); }
+
+  .month-label { font-size: var(--text-md); min-width: 140px; }
+
+  .header-actions { display: flex; }
+  .header-new-btn { display: flex; align-items: center; }
+
+  .bottom-nav { display: none; }
+
+  .app-main { padding-top: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fab, .nav-arrow, .bottom-tab-icon { transition: none; }
+}

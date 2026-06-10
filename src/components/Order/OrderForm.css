@@ -1,0 +1,203 @@
+/* OrderForm — 少女可爱风 */
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.form-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+}
+
+.required {
+  color: var(--color-pink);
+  margin-left: 2px;
+}
+
+/* ── 输入框 ── */
+.form-input,
+.form-textarea {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px var(--space-md);
+  font-size: 16px;
+  font-family: var(--font-family-main);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 48px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--color-pink);
+  box-shadow: 0 0 0 3px rgba(255, 181, 200, 0.22);
+}
+
+.form-input--error {
+  border-color: var(--color-conflict) !important;
+}
+
+.form-input--num {
+  font-family: var(--font-family-num);
+  font-size: 16px;
+}
+
+/* 价格输入带¥符号 */
+.price-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.price-symbol {
+  position: absolute;
+  left: 14px;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--color-primary-dark);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.form-input--price {
+  padding-left: 30px;
+}
+
+.form-error {
+  font-size: var(--text-xs);
+  color: var(--color-conflict);
+  margin: 0;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+/* ── 快捷时长 ── */
+.duration-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.duration-btn {
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-pink-light);
+  background: var(--color-pink-mist);
+  color: #C4607A;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms, transform 100ms;
+  min-height: 40px;
+}
+
+.duration-btn:hover, .duration-btn:active {
+  background: var(--color-pink-light);
+  border-color: var(--color-pink);
+  transform: translateY(-1px);
+}
+
+/* ── 定金勾选 ── */
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  user-select: none;
+  padding: 6px 0;
+  min-height: 44px;
+}
+
+.form-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-label {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  font-weight: var(--font-medium);
+}
+
+/* ── 操作按钮 ── */
+.form-actions {
+  display: flex;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-xs);
+}
+
+.btn-primary {
+  flex: 2;
+  padding: 14px 20px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #88D8BE 100%);
+  color: #fff;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: opacity 150ms, transform 100ms, box-shadow 150ms;
+  min-height: 52px;
+  box-shadow: 0 4px 14px rgba(109,207,176,0.35);
+  letter-spacing: 0.3px;
+}
+
+.btn-primary:hover, .btn-primary:active {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(109,207,176,0.40);
+}
+
+.btn-secondary {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-sub);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms;
+  min-height: 52px;
+}
+
+.btn-secondary:hover, .btn-secondary:active {
+  background: var(--color-pink-mist);
+  border-color: var(--color-pink-light);
+}

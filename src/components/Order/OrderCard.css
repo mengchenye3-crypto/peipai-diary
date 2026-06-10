@@ -1,0 +1,138 @@
+/* OrderCard — 周/日视图订单色块 */
+
+/* 外层定位容器（absolute 在列内） */
+.order-card-wrap {
+  position: absolute;
+  padding: 0 2px;
+  box-sizing: border-box;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 主色块 */
+.order-card {
+  border-radius: var(--radius-sm);
+  padding: 4px 7px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: transform 120ms ease-out, box-shadow 120ms ease-out;
+  border-left: 3px solid transparent;
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.order-card:hover, .order-card:active {
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+/* 状态颜色 */
+.order-card--pending {
+  background: var(--color-pending-bg);
+  border-left-color: var(--color-pending);
+  box-shadow: 0 1px 4px rgba(255,191,71,0.20);
+}
+
+.order-card--confirmed {
+  background: var(--color-confirmed-bg);
+  border-left-color: var(--color-confirmed);
+  box-shadow: 0 1px 4px rgba(109,207,176,0.25);
+}
+
+.order-card--done {
+  background: var(--color-done-bg);
+  border-left-color: var(--color-done);
+  opacity: 0.75;
+}
+
+/* 冲突边框叠加 */
+.order-card--hard {
+  border-left-color: var(--color-conflict) !important;
+  box-shadow: 0 0 0 1.5px rgba(255,143,171,0.50), 0 2px 8px rgba(255,143,171,0.25) !important;
+}
+
+.order-card--soft {
+  border-left-color: var(--color-soft-conflict) !important;
+  box-shadow: 0 0 0 1.5px rgba(255,217,61,0.50), 0 2px 8px rgba(255,217,61,0.20) !important;
+}
+
+/* 文字 */
+.card-time {
+  font-size: 10px;
+  font-family: var(--font-family-num);
+  font-weight: var(--font-medium);
+  color: var(--color-text-sub);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.card-name {
+  font-size: 12px;
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.card-loc {
+  font-size: 10px;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+/* 极窄时一行显示 */
+.card-mini {
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+}
+
+/* 冲突小徽章 */
+.card-badge {
+  font-size: 9px;
+  font-weight: var(--font-bold);
+  padding: 1px 5px;
+  border-radius: var(--radius-full);
+  align-self: flex-start;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.card-badge--hard {
+  background: rgba(255,143,171,0.25);
+  color: #C4305A;
+}
+
+.card-badge--soft {
+  background: rgba(255,217,61,0.30);
+  color: #8A6800;
+}
+
+/* 通勤块 */
+.commute-block {
+  border-radius: 4px;
+  border: 1.5px dashed;
+  opacity: 0.35;
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+.commute-block--pending   { border-color: var(--color-pending);   background: var(--color-pending-bg); }
+.commute-block--confirmed { border-color: var(--color-confirmed); background: var(--color-confirmed-bg); }
+.commute-block--done      { border-color: var(--color-done);      background: var(--color-done-bg); }

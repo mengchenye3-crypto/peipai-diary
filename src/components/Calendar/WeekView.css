@@ -1,0 +1,224 @@
+/* WeekView — 周视图样式 */
+
+.week-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── 固定表头 ── */
+.week-header {
+  display: flex;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(8px);
+  border-bottom: 1.5px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(180,120,200,0.08);
+  z-index: 10;
+}
+
+.week-header-gutter {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.week-header-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 2px;
+  gap: 2px;
+  border-left: 1px solid var(--color-border);
+  cursor: default;
+  min-width: 0;
+  position: relative;
+}
+
+.week-header-cell--today {
+  background: linear-gradient(135deg, rgba(194,237,227,0.30), rgba(255,228,236,0.25));
+}
+
+.wh-weekday {
+  font-size: 10px;
+  font-weight: var(--font-medium);
+  color: var(--color-text-muted);
+  letter-spacing: 0.3px;
+}
+
+.wh-date {
+  font-size: 13px;
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  font-family: var(--font-family-num);
+  line-height: 1.2;
+}
+
+.wh-date--today {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 12px;
+}
+
+/* 订单数小徽章 */
+.wh-count {
+  font-size: 9px;
+  font-weight: var(--font-bold);
+  background: var(--color-pink-light);
+  color: #C4607A;
+  border-radius: var(--radius-full);
+  padding: 1px 5px;
+  line-height: 1.4;
+}
+
+/* ── 可滚动区域 ── */
+.week-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.week-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.week-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.week-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+/* ── 主体网格 ── */
+.week-body {
+  display: flex;
+  position: relative;
+}
+
+/* 时间轴标签列 */
+.week-time-axis {
+  width: 40px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.time-label {
+  position: absolute;
+  left: 0;
+  width: 38px;
+  text-align: right;
+  font-size: 10px;
+  font-family: var(--font-family-num);
+  font-weight: var(--font-medium);
+  color: var(--color-text-muted);
+  transform: translateY(-50%);
+  padding-right: 6px;
+  line-height: 1;
+  user-select: none;
+}
+
+/* 7列容器 */
+.week-cols {
+  flex: 1;
+  display: flex;
+  min-width: 0;
+}
+
+/* 单日列 */
+.week-col {
+  flex: 1;
+  position: relative;
+  border-left: 1px solid var(--color-border);
+  cursor: pointer;
+  min-width: 0;
+  transition: background 120ms;
+}
+
+.week-col:hover {
+  background: rgba(255,181,200,0.04);
+}
+
+.week-col--today {
+  background: linear-gradient(180deg, rgba(194,237,227,0.10) 0%, rgba(255,228,236,0.08) 100%);
+}
+
+.week-col--today:hover {
+  background: linear-gradient(180deg, rgba(194,237,227,0.18) 0%, rgba(255,228,236,0.14) 100%);
+}
+
+/* 水平网格线 */
+.hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+  pointer-events: none;
+}
+
+.hour-line--first {
+  background: transparent;
+}
+
+/* 半小时虚线 */
+.half-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px dashed rgba(201,184,255,0.25);
+  pointer-events: none;
+}
+
+/* 当前时间线 */
+.now-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-conflict);
+  pointer-events: none;
+  z-index: 5;
+  border-radius: var(--radius-full);
+}
+
+.now-dot {
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-conflict);
+}
+
+/* ── 桌面端：更大时间格 ── */
+@media (min-width: 640px) {
+  .week-header-gutter { width: 52px; }
+  .week-time-axis     { width: 52px; }
+
+  .time-label {
+    width: 48px;
+    font-size: 11px;
+  }
+
+  .wh-date { font-size: 14px; }
+  .wh-date--today { width: 28px; height: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .week-col { transition: none; }
+}

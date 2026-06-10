@@ -1,0 +1,126 @@
+/* StatsBar — 顶部本月数据统计条 */
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 8px var(--space-md);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.stats-bar::-webkit-scrollbar { display: none; }
+
+/* 单项 */
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+  padding: 4px var(--space-xs);
+}
+
+/* 收入项：稍微宽一些 */
+.stat-item--income {
+  flex: 1.4;
+  background: linear-gradient(135deg, rgba(194,237,227,0.25) 0%, rgba(255,228,236,0.20) 100%);
+  border-radius: var(--radius-md);
+  padding: 6px var(--space-sm);
+}
+
+/* 分隔线 */
+.stat-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--color-border);
+  flex-shrink: 0;
+  margin: 0 var(--space-xs);
+}
+
+/* 状态小圆点 */
+.stat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.stat-dot--pending   { background: var(--color-accent); }
+.stat-dot--confirmed { background: var(--color-primary); }
+.stat-dot--done      { background: var(--color-text-muted); }
+
+/* 标签文字 */
+.stat-label {
+  font-size: 11px;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 数值 */
+.stat-value {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  font-family: var(--font-family-num);
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* 收入数值：薄荷绿 */
+.stat-value--income {
+  color: var(--color-primary-dark);
+  font-size: var(--text-md);
+}
+
+/* 移动端导出小按钮 */
+.stats-export-btn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid rgba(201,184,255,0.55);
+  background: rgba(201,184,255,0.18);
+  color: var(--color-text-sub);
+  font-size: 14px;
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms;
+  order: 99;        /* 排到最右 */
+  margin-left: auto;
+}
+
+.stats-export-btn:hover { background: rgba(201,184,255,0.32); }
+
+/* 桌面端隐藏（header 已有导出按钮） */
+@media (min-width: 640px) {
+  .stats-export-btn { display: none; }
+}
+
+/* 桌面端 */
+@media (min-width: 640px) {
+  .stats-bar {
+    padding: 10px var(--space-xl);
+    gap: var(--space-sm);
+  }
+
+  .stat-item {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .stat-label { font-size: var(--text-xs); }
+  .stat-value { font-size: var(--text-md); }
+  .stat-value--income { font-size: var(--text-lg); }
+}

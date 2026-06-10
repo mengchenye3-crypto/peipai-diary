@@ -1,0 +1,188 @@
+/* MonthView — 少女可爱风 · 移动端优先 */
+
+.month-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0 5px;
+}
+
+/* 星期标题 */
+.month-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 6px 2px 2px;
+  flex-shrink: 0;
+}
+
+.month-weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: var(--font-medium);
+  color: var(--color-text-muted);
+  padding: 4px 0;
+  letter-spacing: 0.3px;
+}
+
+/* 网格 */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 3px;
+  flex: 1;
+  min-height: 0;
+  padding-bottom: 4px;
+}
+
+/* ── 格子基础样式 ── */
+.month-cell {
+  background: rgba(255,255,255,0.75);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  padding: 4px 4px 3px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: border-color 150ms, box-shadow 150ms, background 150ms;
+  overflow: hidden;
+  -webkit-tap-highlight-color: rgba(255,181,200,0.15);
+  user-select: none;
+  backdrop-filter: blur(2px);
+}
+
+.month-cell:active {
+  background: var(--color-pink-mist);
+  border-color: var(--color-pink-light);
+}
+
+/* 非当月 */
+.month-cell--other {
+  opacity: 0.22;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* 今天 — 薄荷粉渐变高亮 */
+.month-cell--today {
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-pink-light) 100%);
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 1.5px rgba(109,207,176,0.30);
+  animation: todayPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes todayPulse {
+  from { box-shadow: 0 0 0 1.5px rgba(109,207,176,0.20), 0 2px 8px rgba(109,207,176,0.10); }
+  to   { box-shadow: 0 0 0 2px   rgba(109,207,176,0.40), 0 4px 14px rgba(109,207,176,0.20); }
+}
+
+/* 桌面端 hover */
+@media (hover: hover) {
+  .month-cell:hover {
+    background: rgba(255,255,255,0.95);
+    border-color: var(--color-pink-light);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-0.5px);
+  }
+}
+
+/* 冲突圆点 */
+.conflict-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+}
+
+.conflict-dot--hard { background: var(--color-conflict); }
+.conflict-dot--soft { background: var(--color-accent); }
+
+/* ── 日期数字 ── */
+.cell-date {
+  font-size: 12px;
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  font-family: var(--font-family-num);
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+/* 今天：绿圆圈数字 */
+.month-cell--today .cell-date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: var(--font-bold);
+}
+
+/* 周末粉色数字 */
+.cell-date--weekend { color: #C4607A; }
+
+/* ── 移动端：彩色圆点 ── */
+.cell-dots {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  padding-top: 1px;
+}
+
+.order-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.order-dot--pending   { background: var(--color-pending); }
+.order-dot--confirmed { background: var(--color-confirmed); }
+.order-dot--done      { background: var(--color-done); }
+
+/* ── 桌面端：文字色条（CSS 控制隐藏/显示） ── */
+.cell-orders { display: none; flex-direction: column; gap: 2px; flex: 1; min-height: 0; overflow: hidden; }
+
+.order-bar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  border-radius: 5px;
+  padding: 2px 4px;
+  overflow: hidden;
+  transition: transform 100ms;
+}
+
+.order-bar:hover { transform: scale(1.01); }
+
+.order-bar--pending   { background: var(--color-pending-bg);   border-left: 3px solid var(--color-pending); }
+.order-bar--confirmed { background: var(--color-confirmed-bg); border-left: 3px solid var(--color-confirmed); }
+.order-bar--done      { background: var(--color-done-bg);      border-left: 3px solid var(--color-done); }
+
+.order-bar-time { font-size: 10px; font-weight: var(--font-medium); color: var(--color-text-sub); font-family: var(--font-family-num); flex-shrink: 0; white-space: nowrap; }
+.order-bar-name { font-size: 10px; color: var(--color-text); font-weight: var(--font-medium); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.order-bar-more { font-size: 10px; color: var(--color-text-muted); padding: 1px 2px; text-align: center; }
+
+/* ── 桌面端适配 ── */
+@media (min-width: 640px) {
+  .month-view  { padding: 0 var(--space-md); }
+  .month-grid  { gap: 5px; padding-bottom: var(--space-md); }
+  .month-cell  { border-radius: var(--radius-md); padding: 7px 6px 5px; min-height: 90px; }
+  .cell-date   { font-size: var(--text-sm); }
+  .month-cell--today .cell-date { width: 24px; height: 24px; font-size: 12px; }
+  .cell-dots   { display: none; }
+  .cell-orders { display: flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .month-cell--today { animation: none; }
+  .month-cell { transition: none; }
+}

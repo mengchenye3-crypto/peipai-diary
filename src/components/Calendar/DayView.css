@@ -1,0 +1,205 @@
+/* DayView — 日视图样式 */
+
+.day-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── 日期头部 ── */
+.day-header {
+  flex-shrink: 0;
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(8px);
+  border-bottom: 1.5px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(180,120,200,0.08);
+}
+
+.day-header--today {
+  background: linear-gradient(135deg, rgba(194,237,227,0.35) 0%, rgba(255,228,236,0.28) 100%);
+}
+
+.day-header-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: 4px;
+}
+
+.day-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  font-family: var(--font-family-num);
+}
+
+.day-title--today {
+  color: var(--color-primary-dark);
+}
+
+.today-chip {
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+}
+
+.day-header-stats {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.day-stat {
+  font-size: var(--text-sm);
+  color: var(--color-text-sub);
+}
+
+.day-stat--income {
+  font-weight: var(--font-bold);
+  color: var(--color-primary-dark);
+  background: var(--color-primary-mist);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+}
+
+/* ── 可滚动区域 ── */
+.day-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.day-scroll::-webkit-scrollbar { width: 4px; }
+.day-scroll::-webkit-scrollbar-track { background: transparent; }
+.day-scroll::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--radius-full); }
+
+/* ── 主体布局 ── */
+.day-body {
+  display: flex;
+  position: relative;
+}
+
+/* 时间轴标签 */
+.day-time-axis {
+  width: 48px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* 复用 WeekView 的 time-label 样式 */
+.day-view .time-label {
+  position: absolute;
+  left: 0;
+  width: 44px;
+  text-align: right;
+  font-size: 11px;
+  font-family: var(--font-family-num);
+  font-weight: var(--font-medium);
+  color: var(--color-text-muted);
+  transform: translateY(-50%);
+  padding-right: 8px;
+  line-height: 1;
+  user-select: none;
+}
+
+/* 主内容列 */
+.day-col {
+  flex: 1;
+  position: relative;
+  border-left: 1.5px solid var(--color-border);
+  cursor: pointer;
+  background: linear-gradient(180deg, rgba(194,237,227,0.06) 0%, rgba(255,228,236,0.04) 100%);
+  transition: background 120ms;
+}
+
+.day-col:hover {
+  background: linear-gradient(180deg, rgba(194,237,227,0.12) 0%, rgba(255,228,236,0.08) 100%);
+}
+
+/* 网格线（复用 WeekView 命名） */
+.day-view .hour-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--color-border);
+  pointer-events: none;
+}
+
+.day-view .hour-line--first { background: transparent; }
+
+.day-view .half-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  border-top: 1px dashed rgba(201,184,255,0.22);
+  pointer-events: none;
+}
+
+/* 当前时间线 */
+.day-view .now-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--color-conflict);
+  pointer-events: none;
+  z-index: 5;
+  border-radius: var(--radius-full);
+}
+
+.day-view .now-dot {
+  position: absolute;
+  left: -4px; top: -3px;
+  width: 8px; height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-conflict);
+}
+
+/* 空状态提示 */
+.day-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  text-align: center;
+}
+
+/* 日视图的 OrderCard 更宽，多显示信息 */
+.day-col .order-card-wrap {
+  padding: 0 4px;
+}
+
+.day-col .order-card {
+  padding: 6px 10px;
+  gap: 3px;
+}
+
+.day-col .card-time { font-size: 11px; }
+.day-col .card-name { font-size: 14px; }
+.day-col .card-loc  { font-size: 11px; }
+
+/* 桌面端 */
+@media (min-width: 640px) {
+  .day-time-axis { width: 56px; }
+
+  .day-view .time-label {
+    width: 52px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .day-col { transition: none; }
+}

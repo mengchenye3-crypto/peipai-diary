@@ -1,0 +1,297 @@
+/* OrderDetail — 少女可爱风 */
+
+.order-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 渐变头部 */
+.detail-header {
+  padding: var(--space-md) var(--space-lg);
+  background: var(--grad-sidebar);
+  flex-shrink: 0;
+}
+
+.detail-date {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+/* 头部第二行：订单数 + 新建按钮并排 */
+.detail-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.detail-count {
+  font-size: var(--text-sm);
+  color: var(--color-text-sub);
+  margin: 0;
+}
+
+/* 当日收入 */
+.detail-income {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-primary-dark);
+  margin: 0 0 var(--space-md);
+  background: rgba(255,255,255,0.55);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  display: inline-block;
+}
+
+.detail-add-btn {
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #88D8BE 100%);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: opacity 150ms, transform 100ms;
+  min-height: 44px;
+  box-shadow: 0 3px 12px rgba(109,207,176,0.30);
+}
+
+.detail-add-btn:hover, .detail-add-btn:active {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* 空状态 */
+.detail-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-2xl) var(--space-lg);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.detail-empty-icon { font-size: 44px; opacity: 0.5; }
+
+/* 订单列表 */
+.detail-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 订单卡片 */
+.detail-item {
+  background: var(--grad-card);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.detail-item--hard {
+  border-color: var(--color-conflict);
+  box-shadow: 0 0 0 2px rgba(255,143,171,0.22);
+}
+
+.detail-item--soft {
+  border-color: var(--color-soft-conflict);
+  box-shadow: 0 0 0 2px rgba(255,217,61,0.22);
+}
+
+.detail-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.detail-client {
+  font-size: var(--text-md);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+/* 状态徽章 */
+.status-badge {
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status-badge--pending   { background: #FFF8E0; color: #C4920A; }
+.status-badge--confirmed { background: var(--color-confirmed-bg); color: #2A9070; }
+.status-badge--done      { background: var(--color-done-bg); color: var(--color-text-sub); }
+
+.detail-time {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  margin: 0;
+  font-family: var(--font-family-num);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.detail-commute {
+  font-size: var(--text-xs);
+  color: var(--color-text-sub);
+}
+
+.detail-meta {
+  font-size: var(--text-sm);
+  color: var(--color-text-sub);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.deposit-tag {
+  background: var(--color-primary-mist);
+  color: var(--color-primary-dark);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+}
+
+.conflict-tip {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  margin: 0;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.conflict-tip--hard { background: var(--color-pink-mist); color: var(--color-conflict); }
+.conflict-tip--soft { background: #FFFBE6; color: #A07800; }
+
+.detail-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-sub);
+  margin: 0;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  line-height: 1.6;
+}
+
+/* 操作按钮 */
+.detail-item-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.action-btn {
+  padding: 10px 0;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: background 150ms, transform 100ms;
+  min-height: 44px;
+}
+
+.action-btn--edit {
+  background: var(--color-primary-mist);
+  color: var(--color-primary-dark);
+  border-color: var(--color-border-mint);
+}
+
+.action-btn--edit:hover, .action-btn--edit:active {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.action-btn--delete {
+  background: var(--color-pink-mist);
+  color: var(--color-conflict);
+  border-color: var(--color-pink-light);
+}
+
+.action-btn--delete:hover, .action-btn--delete:active {
+  background: var(--color-pink-light);
+}
+
+/* ── 状态快捷操作按钮 ── */
+.status-action-btn {
+  width: 100%;
+  padding: 11px 0;
+  border-radius: var(--radius-full);
+  border: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: opacity 150ms, transform 100ms, box-shadow 150ms;
+  min-height: 46px;
+  letter-spacing: 0.2px;
+}
+
+/* 待确认 → 确认订单（薄荷绿主色） */
+.status-action--confirm {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #88D8BE 100%);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(109,207,176,0.35);
+}
+
+.status-action--confirm:hover, .status-action--confirm:active {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(109,207,176,0.45);
+}
+
+/* 已确认 → 标记完成（奶油黄） */
+.status-action--done {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #FFE0A0 100%);
+  color: #7A5A00;
+  box-shadow: 0 3px 12px rgba(255,207,119,0.35);
+}
+
+.status-action--done:hover, .status-action--done:active {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* 已完成 → 重新开放（灰紫淡色） */
+.status-action--reopen {
+  background: var(--color-done-bg);
+  color: var(--color-text-sub);
+  border: 1.5px solid var(--color-border);
+}
+
+.status-action--reopen:hover, .status-action--reopen:active {
+  background: var(--color-lavender-light);
+  color: var(--color-text);
+}
+
+/* 已完成的卡片整体降调 */
+.detail-item--status-done {
+  opacity: 0.72;
+}
+
+.detail-item--status-done .detail-client {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-text-muted);
+}

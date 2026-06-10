@@ -1,0 +1,111 @@
+/* Sidebar — 少女可爱风 */
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 42, 78, 0.30);
+  z-index: 800;
+  animation: overlayIn 200ms ease-out;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 移动端：底部全屏抽屉 */
+.sidebar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 90dvh;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  box-shadow: var(--shadow-modal);
+  z-index: 900;
+  transform: translateY(100%);
+  transition: transform 320ms cubic-bezier(0.34, 1.08, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.sidebar--open { transform: translateY(0); }
+
+/* 拖拽把手 */
+.sidebar::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  margin: 12px auto 0;
+  flex-shrink: 0;
+}
+
+/* 彩虹渐变顶部条 */
+.sidebar::after {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary-light), var(--color-pink-light), var(--color-lavender-light));
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 14px;
+  right: var(--space-md);
+  min-width: 44px;
+  min-height: 44px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--color-pink-mist);
+  color: var(--color-text-sub);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms;
+  z-index: 1;
+}
+
+.sidebar-close:hover, .sidebar-close:active {
+  background: var(--color-pink-light);
+  color: #C4607A;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding-top: 8px;
+}
+
+/* 桌面端：右侧抽屉 */
+@media (min-width: 640px) {
+  .sidebar {
+    top: 0; left: auto; right: 0; bottom: 0;
+    width: 380px; height: 100%;
+    border-radius: 0;
+    transform: translateX(100%);
+    transition: transform 280ms cubic-bezier(0.34, 1.08, 0.64, 1);
+  }
+
+  .sidebar--open { transform: translateX(0); }
+
+  .sidebar::before { display: none; }
+
+  .sidebar-close { top: var(--space-md); right: auto; left: var(--space-md); }
+  .sidebar-content { padding-top: var(--space-2xl); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .sidebar-overlay { transition: none; animation: none; }
+}
